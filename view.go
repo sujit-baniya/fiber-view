@@ -69,7 +69,10 @@ func New(cfg Config) *View {
 }
 
 func Render(c *fiber.Ctx, viewFile string, data fiber.Map, layout ...string) error {
-	return DefaultView.Render(c, viewFile, data, layout...)
+	if err := DefaultView.Render(c, viewFile, data, layout...); err != nil { //nolint:wsl
+		panic(err.Error())
+	}
+	return nil
 }
 
 func Template() *html.Engine {
