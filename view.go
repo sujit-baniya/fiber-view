@@ -70,7 +70,9 @@ func New(cfg Config) *View {
 
 func Render(c *fiber.Ctx, viewFile string, data fiber.Map, layout ...string) error {
 	if err := DefaultView.Render(c, viewFile, data, layout...); err != nil { //nolint:wsl
-		panic(err.Error())
+		if err := DefaultView.Render(c, "errors/404", data, layout...); err != nil { //nolint:wsl
+			panic(err.Error())
+		}
 	}
 	return nil
 }
